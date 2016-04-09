@@ -5,7 +5,7 @@ int[] frequencies;
 
 void setup() {
 	size(window.innerWidth,window.innerHeight);
-	frameRate(15);
+	frameRate(30);
 }
 
 void draw() {

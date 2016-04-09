@@ -1,0 +1,31 @@
+{
+  "name": "Visualizer-by-Adrian",
+  "homepage": "https://github.com/designbyadrian/Visualizer-by-Adrian",
+  "authors": [
+    "Adrian von Gegerfelt <adrian@designbyadrian.com>"
+  ],
+  "description": "MP3 Visualizer experiment using Processing.js",
+  "main": "index.html",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "processing",
+    "javascript"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Processing.js": "^1.4.16"
+  },
+  "devDependencies": {
+    "webrtc-adapter": "gh-pages"
+  }
+}

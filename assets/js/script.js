@@ -1,8 +1,13 @@
+var processing,
+	switchVisualizer = function(visualizer){
+		document.body.className = visualizer;
+		processing.switchVisualizer(visualizer);
+	};
+
 window.onload = function(){
 
 	var audioBufferSize = 1024,
 		count = 0,
-		processing = Processing.getInstanceById('visualizer'),
 		analyser, frequencyData
 		media = navigator.mediaDevices.getUserMedia ? navigator.mediaDevices.getUserMedia({audio:true}) : navigator.mediaDevices.webkitGetUserMedia({audio:true}),
 		renderFrame = function(){
@@ -13,6 +18,8 @@ window.onload = function(){
 		};
 
 	media.then(function(stream){
+
+		processing = Processing.getInstanceById('visualizer');
 
 		var AudioContext = window.AudioContext || window.webkitAudioContect,
 			audioCtx = new AudioContext(),

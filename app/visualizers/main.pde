@@ -1,6 +1,7 @@
 Object current = new EqLineRainbow;
 int bufferSize;
-Array values = new Array();
+int[] leftValues;
+int[] rightValues;
 
 void setup() {
 	size(window.innerWidth,window.innerHeight);
@@ -17,13 +18,29 @@ void setBufferSize(int bs) {
 
 void setGraphValues(Array arr) {
 
-	int[] newValues = new int[bufferSize];
+	int[] newLeftValues = new int[bufferSize/2];
+	int[] newRightValues = new int[bufferSize/2];
 
-	for(int i=0;i<bufferSize;i++) {
-		newValues[i] = (arr[i] + arr[i+bufferSize]) / 2;
+	for(int i=0;i<bufferSize/2;i++) {
+		newLeftValues[i] = arr[i];
 	}
 
-	values = newValues;
+	for(int j=0;j<bufferSize/2;j++) {
+		newRightValues[j] = arr[j+bufferSize/2];
+	}
+
+	leftValues = newLeftValues;
+	rightValues = newRightValues;
+}
+
+void getMergedValues() {
+	int[] newValues = new int[bufferSize/2];
+
+	for(int i=0,j=bufferSize/2;i<j;i++) {
+		newValues[i] = (leftValues[i] + rightValues[i]) / 2;
+	}
+
+	return newValues;
 }
 
 void switchVisualizer(String visualizer) {

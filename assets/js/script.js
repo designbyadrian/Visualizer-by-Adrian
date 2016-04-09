@@ -6,7 +6,7 @@ var processing,
 
 window.onload = function(){
 
-	var audioBufferSize = 1024,
+	var fftSize = 512,
 		count = 0,
 		analyser, frequencyData
 		media = navigator.mediaDevices.getUserMedia ? navigator.mediaDevices.getUserMedia({audio:true}) : navigator.mediaDevices.webkitGetUserMedia({audio:true}),
@@ -27,11 +27,9 @@ window.onload = function(){
 		
 		analyser = audioCtx.createAnalyser();
 
-		analyser.fftSize = audioBufferSize;
+		analyser.fftSize = fftSize;
 
-		frequencyData = new Uint8Array(audioBufferSize);
-
-		processing.setBufferSize(audioBufferSize);
+		frequencyData = new Uint8Array(analyser.frequencyBinCount);
 
 		audioSrc.connect(analyser);
 		

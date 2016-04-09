@@ -13,3 +13,11 @@ Run the installer in your console (requires NPM and Bower):
 ```console
 npm install
 ```
+
+Then start Gulp to generate the necessary javascript and css files:
+
+```console
+gulp setup
+```
+
+> **Note:** The Gulp watcher is initiated with just "\> gulp"

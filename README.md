@@ -21,3 +21,9 @@ gulp setup
 ```
 
 > **Note:** The Gulp watcher is initiated with just "\> gulp"
+
+##Research
+
+[Making Audio-reactive visuals | airtightinteractive](https://www.airtightinteractive.com/2013/10/making-audio-reactive-visuals/)
+
+[Beat-detection using Web Audio | Beatport](http://tech.beatport.com/2014/web-audio/beat-detection-using-web-audio/)

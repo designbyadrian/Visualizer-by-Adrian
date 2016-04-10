@@ -18,16 +18,16 @@ var gulp = require('gulp'),
 	connect = require('gulp-connect'),
 	queue = require('streamqueue'),
 	paths = {
-		root: 	'./app',
-		js: 	'./assets/js',
-		sass: 	'./assets/sass',
-		mainSASS: './assets/sass/main.sass'
+		root: 		'./app',
+		js: 		'./assets/js',
+		mainJS: 	'./assets/js/main.js',
+		sass: 		'./assets/sass',
+		mainSASS: 	'./assets/sass/main.sass'
 	},
 	sassVendors = [
 		'./bower_components/font-awesome/scss/'
 	],
 	jsVendors = [
-		'./bower_components/Processing.js/processing.min.js',
 		'./bower_components/webrtc-adapter/adapter-1.0.7.js'
 	];
 
@@ -114,7 +114,12 @@ gulp.task('sass',function(){
 gulp.task('scripts', ['es-lint', 'js']);
 
 gulp.task('es-lint',function(){
-	gulp.src(paths.js+'/*.js')
+	gulp.src([
+			paths.mainJS,
+			paths.js+'/*.js'
+		],{
+			base: paths.js
+		})
 		.pipe(plumber({
 			errorHandler: function(err) {
 				notify.onError({
@@ -133,7 +138,12 @@ gulp.task('es-lint',function(){
 gulp.task('js',function(){
 
 	var concatStream = gulp.src(jsVendors),
-		minStream = gulp.src(paths.js+'/*.js')
+		minStream = gulp.src([
+			paths.mainJS,
+			paths.js+'/*.js'
+		],{
+			base: paths.js
+		})
 		.pipe(plumber({
 			errorHandler: function(err) {
 				notify.onError({

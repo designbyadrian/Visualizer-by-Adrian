@@ -4,7 +4,7 @@
   "authors": [
     "Adrian von Gegerfelt <adrian@designbyadrian.com>"
   ],
-  "description": "MP3 Visualizer experiment using Processing.js",
+  "description": "MP3 Visualizer experiment using HTML 5 Canvas",
   "main": "index.html",
   "moduleType": [
     "globals"
@@ -22,9 +22,6 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "Processing.js": "^1.4.16"
-  },
   "devDependencies": {
     "webrtc-adapter": "gh-pages"
   }

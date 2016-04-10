@@ -1,6 +1,6 @@
 {
   "name": "largeVisualizer-by-Adrian",
-  "description": "MP3 Visualizer experiment using Processing.js",
+  "description": "MP3 Visualizer experiment using HTML 5 Canvas",
   "version": "0.1.0",
   "dependencies": {
     "bower": "1.7.7"

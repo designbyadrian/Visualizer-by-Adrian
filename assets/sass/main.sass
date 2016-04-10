@@ -1,7 +1,29 @@
+@import 'bourbon'
+@import 'neat'
+
+.options
+	position: absolute
+	top: 10px
+	right: 10px
+	z-index: 10
+
+	.btn
+		float: right
+		margin-left: .5em
+		cursor: pointer
+
+.btn
+	padding: 0.5em
+	color: white
+	background: rgba(black,0.5)
+	border-radius: 4px
+
 body
 	margin: 0
-
-	&.EqLineRainbow,&.EqLineWhite
+	font-family: "Helvetica Neue", Helvetica, sans-serif
+	font-size: 12px
+	
+	&.rainbow-eq
 
 		background-color: black
 
@@ -25,6 +47,17 @@ body
 			background: linear-gradient(to bottom, rgba(0,0,0,.5) 0%,rgba(0,0,0,1) 40%)
 			z-index: 1
 
-	&.QuarterEQCircle
+	&.grunge-circle
+		background: url("img/ricepaper_v3.png") rgb(222,201,180)
 
-		background-color: beige
+		&:before
+			content: ''
+			width: 300px
+			height: 300px
+			position: absolute
+			top: 50%
+			left: 50%
+			transform: translate(-50%,-50%)
+			z-index: -1
+			background: url("img/city-bw-600x600-alpha.png")
+			background-size: 300px 300px

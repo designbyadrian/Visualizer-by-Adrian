@@ -33,3 +33,5 @@ gulp setup
 [What the frack is FFT? | StackOverflow](http://stackoverflow.com/questions/14789283/what-does-the-fft-data-in-the-web-audio-api-correspond-to/14789992#14789992)
 
 [Extracting frequencies from FFT | StackOverflow](http://dsp.stackexchange.com/questions/2818/extracting-frequencies-from-fft)
+
+[Controlling FPS with requestAnimationFrame | StackOverflow](http://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe)

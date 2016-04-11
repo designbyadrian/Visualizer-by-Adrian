@@ -34,4 +34,4 @@ gulp setup
 
 [Extracting frequencies from FFT | StackOverflow](http://dsp.stackexchange.com/questions/2818/extracting-frequencies-from-fft)
 
-[Controlling FPS with requestAnimationFrame | StackOverflow](http://stackoverflow.com/questions/19764018/controlling-fps-with-requestanimationframe)
+[Controlling FPS with requestAnimationFrame | CreativeJS](http://creativejs.com/resources/requestanimationframe/)

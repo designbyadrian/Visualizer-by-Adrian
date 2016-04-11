@@ -2,3 +2,7 @@ bower_components
 node_modules
 inspiration
 *.orig
+style.css.map
+script.min.js
+script.min.js.map
+style.css

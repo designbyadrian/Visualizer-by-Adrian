@@ -123,7 +123,7 @@ gulp.task('es-lint',function(){
 		.pipe(plumber({
 			errorHandler: function(err) {
 				notify.onError({
-					title: 'JS Compile Error',
+					title: 'JS Lint Error',
 					message: '<%= error.message %>',
 					sound: 'Sosumi'
 				})(err);
@@ -146,9 +146,14 @@ gulp.task('js',function(){
 		})
 		.pipe(plumber({
 			errorHandler: function(err) {
+				var file = err.fileName.split("/");
+				file = file[file.length-1];
+
+				console.error(err.message);
+
 				notify.onError({
 					title: 'JS Compile Error',
-					message: '<%= error.message %>',
+					message: 'Line <%= error.lineNumber %> in '+file,
 					sound: 'Sosumi'
 				})(err);
 				this.emit('end');
@@ -158,6 +163,16 @@ gulp.task('js',function(){
 		.pipe(uglify());
 
 	return queue({objectMode:true},concatStream,minStream)
+		.pipe(plumber({
+			errorHandler: function(err) {
+				notify.onError({
+					title: 'JS Concat Error',
+					message: '<%= error.message %>',
+					sound: 'Sosumi'
+				})(err);
+				this.emit('end');
+			}
+		}))
 		.pipe(concat('script.min.js'))
 		.pipe(gulp.dest(paths.root))
 		.pipe(sourcemaps.write('./'))

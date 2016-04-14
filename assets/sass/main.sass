@@ -1,6 +1,8 @@
 @import 'bourbon'
 @import 'neat'
 
+@import url(https://fonts.googleapis.com/css?family=Ropa+Sans)
+
 .options
 	position: absolute
 	top: 10px
@@ -20,7 +22,7 @@
 
 body
 	margin: 0
-	font-family: "Helvetica Neue", Helvetica, sans-serif
+	font-family: "Ropa Sans", "Helvetica Neue", Helvetica, sans-serif
 	font-size: 12px
 	
 	&.rainbow-eq
@@ -61,3 +63,7 @@ body
 			z-index: -1
 			background: url("img/city-bw-600x600-alpha.png")
 			background-size: 300px 300px
+
+	&.los-penguinos
+		background: url(img/iceberg.svg) no-repeat center bottom fixed
+		background-size: cover

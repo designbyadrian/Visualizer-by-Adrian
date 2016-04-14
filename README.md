@@ -8,7 +8,7 @@ Browser that supports the [Web Audio API](http://caniuse.com/#search=web%20audio
 
 ##Demonstration
 
-Please visit [designbyadrian.com/play/visualizer](https://designbyadrian.com/play/visualizer)
+Please visit [designbyadrian.com/play/visualizer](http://designbyadrian.com/play/visualizer)
 
 ##Project setup
 

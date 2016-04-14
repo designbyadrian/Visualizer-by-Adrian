@@ -1,6 +1,8 @@
 dbaProcessing.visualizers.grungeCircle = {
 	setup: function(){
 		this.context = dbaProcessing.canvas.getContext('2d');
+
+		dbaProcessing.setFFTSize(32);
 	},
 	getRotation: function(index,frequencyGroups){
 		return degreesToRadians((1-(frequencyGroups[index]/255)*135)+90);

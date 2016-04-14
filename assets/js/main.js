@@ -1,10 +1,12 @@
 var dbaProcessing = {
 		fps: 30,
+		bpm: 80,
 		fftSize: 512,
 		frequencyData: [],
 		visualizers: {},
+		timerThen: Date.now(),
 		setVisualizer: function(v){
-			console.log("set ",v);
+			console.log("set \""+v+"\"",this.visualizers);
 			if(this.visualizers.hasOwnProperty(v)) {
 				document.body.className = v.toDash();
 				this.current = v;
@@ -14,15 +16,23 @@ var dbaProcessing = {
 		loop: function(){
 			var _this = this;
 			
-			this.analyser.getByteFrequencyData(this.frequencyData);
-
-			this.visualizers[this.current].draw();
-
 			if(this.run) {
 				requestAnimationFrame(function(){
 					_this.loop();
 				});
 			}
+
+			var now = Date.now(),
+				elapsed = now - this.timerThen;
+
+			if(elapsed > 1000/this.fps) {
+				this.timerThen = now - (elapsed % (1000/this.fps));
+
+				this.analyser.getByteFrequencyData(this.frequencyData);
+
+				this.visualizers[this.current].draw();
+			}
+
 		},
 		start: function(v){
 			this.setVisualizer(v);
@@ -30,9 +40,6 @@ var dbaProcessing = {
 			if(!this.run) {
 				this.run = true;
 				
-				// if(!this.current) {
-				// 	this.setVisualizer(Object.keys(this.visualizers)[0]);
-				// }
 				this.loop();
 			}
 		},
@@ -52,6 +59,17 @@ var dbaProcessing = {
 					return prev+curr;
 				})/group.length);
 			});
+		},
+		easing: {
+			linear: function(p){
+				return p;
+			},
+			easeInQuad: function(p){
+				return Math.pow(p,2);
+			},
+			easeOutQuad: function(p){
+				return 1-dbaProcessing.easing.easeInQuad(1-p);
+			},
 		},
 		setup: function(){
 			var _this = this,
@@ -80,6 +98,10 @@ var dbaProcessing = {
 				console.warn(err.name,err);
 			});
 		},
+		setFFTSize: function(fftSize){
+			this.analyser.fftSize = fftSize>=32?fftSize:32;
+			this.frequencyData = new Uint8Array(this.analyser.frequencyBinCount);
+		}
 	};
 
 window.onload = function(){

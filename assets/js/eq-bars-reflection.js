@@ -1,7 +1,8 @@
 dbaProcessing.visualizers.rainbowEq = {
 	setup: function(){
 		this.context = dbaProcessing.canvas.getContext('2d');
-		console.log("setup");
+		
+		dbaProcessing.setFFTSize(512);
 	},
 	draw: function(){
 

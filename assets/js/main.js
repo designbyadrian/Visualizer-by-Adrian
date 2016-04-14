@@ -9,6 +9,7 @@ var dbaProcessing = {
 		timerThen: Date.now(),
 		beatCutOff: 0,
 		beatDecayRate: 0.98,
+		beatHoldTime: 30,
 		beatMin: 0.27,
 		beatTime: 0,
 		bpmTime: 0,
@@ -78,6 +79,7 @@ var dbaProcessing = {
 				if(this.beatTime <= this.beatHoldTIme) {
 					this.beatTime++;
 				} else {
+					this.wasBeat = false;
 					this.beatCutOff *= this.beatDecayRate;
 					this.beatCutOff = Math.max(this.beatCutOff,this.beatMin);
 				}
@@ -98,9 +100,10 @@ var dbaProcessing = {
 				}
 
 				this.bpmTime = now;
-			} else if(now>this.bpmTime) {
-				this.wasBeat = false;
 			}
+			// } else if(now>60000/this.bpmMax) {
+			// 	this.wasBeat = false;
+			// }
 		},
 		start: function(v){
 			this.setVisualizer(v);

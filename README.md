@@ -6,6 +6,10 @@
 
 Browser that supports the [Web Audio API](http://caniuse.com/#search=web%20audio%20api)
 
+##Demonstration
+
+Please visit [designbyadrian.com/play/visualizer](https://designbyadrian.com/play/visualizer)
+
 ##Project setup
 
 Run the installer in your console (requires NPM and Bower):

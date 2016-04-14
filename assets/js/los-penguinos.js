@@ -26,7 +26,7 @@ Penguin.prototype = {
 		return dbaProcessing.easing[easing](this.progress);
 	},
 	hop: function(value,gfx,ctx){
-		if(!this.hopping && value>12) {
+		if(!this.hopping && value>12 && dbaProcessing.wasBeat) {
 
 			this.hopping = true;
 			this.duration = 60000/dbaProcessing.bpm; // we don't want to change speed mid-hop
@@ -132,6 +132,8 @@ dbaProcessing.visualizers.losPenguinos = {
 		this.gfx.land.img.src = "img/el_penguino-land.svg";
 	},
 	draw: function(){
+
+
 		if(dbaProcessing.frequencyData.length>0&&this.penguins.length==this.numPenguins) {
 
 			var fG = dbaProcessing.getFrequencyGroups(this.numPenguins),

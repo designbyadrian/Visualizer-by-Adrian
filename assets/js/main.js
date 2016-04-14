@@ -1,13 +1,21 @@
 var dbaProcessing = {
-		fps: 30,
-		bpm: 80,
+		fps: 60,
+		bpm: 143,
+		bpmMin: 60,
+		bpmMax: 240,
 		fftSize: 512,
 		frequencyData: [],
 		visualizers: {},
 		timerThen: Date.now(),
+		beatCutOff: 0,
+		beatDecayRate: 0.98,
+		beatMin: 0.27,
+		beatTime: 0,
+		bpmTime: 0,
+		wasBeat: false,
 		setVisualizer: function(v){
 			console.log("set \""+v+"\"",this.visualizers);
-			if(this.visualizers.hasOwnProperty(v)) {
+			if(this.visualizers.hasOwnProperty(v)&&this.current!=v) {
 				document.body.className = v.toDash();
 				this.current = v;
 				this.visualizers[v].setup();
@@ -30,9 +38,69 @@ var dbaProcessing = {
 
 				this.analyser.getByteFrequencyData(this.frequencyData);
 
+				this.normalizeLevels(this.analyser.frequencyBinCount);
+
 				this.visualizers[this.current].draw();
 			}
 
+		},
+		normalizeLevels: function(binCount){
+
+			/* Stolen from https://www.airtightinteractive.com/2013/10/making-audio-reactive-visuals/*/
+
+			var levelsCount = 16,
+				levelBins = Math.floor(binCount / levelsCount),
+				levelsData = [];
+
+			for(var i=0; i<levelsCount; i++) {
+				var sum = 0;
+				for(var j=0; j<levelBins;j++) {
+					sum += this.frequencyData[(i*levelBins)+j];
+				}
+				levelsData[i] = sum / levelBins / (binCount / 2) * 0.5;
+			}
+
+			var sum = 0;
+
+			for(var j=0;j<levelsCount;j++) {
+				sum+=levelsData[j];
+			}
+			this.level = sum / levelsCount;
+
+			this.detectBeat();
+		},
+		detectBeat: function(){
+			if(this.level > this.beatCutOff && this.level > this.beatMin) {
+				this.beat();
+				this.beatCutOff = this.level * 1.1;
+				this.beatTime = 0;
+			} else {
+				if(this.beatTime <= this.beatHoldTIme) {
+					this.beatTime++;
+				} else {
+					this.beatCutOff *= this.beatDecayRate;
+					this.beatCutOff = Math.max(this.beatCutOff,this.beatMin);
+				}
+			}
+		},
+		beat: function(){
+			
+			var _this = this,
+				now = Date.now();
+
+			if(now>this.bpmTime+(60000/this.bpmMax)) {
+
+				var bpm = 60000/(now-this.bpmTime);
+
+				if(bpm>0) {
+					this.bpm = Math.max(Math.round(bpm),this.bpmMin);
+					this.wasBeat = true;
+				}
+
+				this.bpmTime = now;
+			} else if(now>this.bpmTime) {
+				this.wasBeat = false;
+			}
 		},
 		start: function(v){
 			this.setVisualizer(v);

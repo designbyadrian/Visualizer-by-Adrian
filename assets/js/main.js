@@ -1,4 +1,5 @@
-var dbaProcessing = {
+var infoMessage, infoIcon,
+	dbaProcessing = {
 		fps: 60,
 		bpm: 143,
 		bpmMin: 60,
@@ -143,8 +144,16 @@ var dbaProcessing = {
 			},
 		},
 		setup: function(){
+
+			try {
+
 			var _this = this,
 				media = navigator.mediaDevices.getUserMedia ? navigator.mediaDevices.getUserMedia({audio:true}) : navigator.mediaDevices.webkitGetUserMedia({audio:true});
+
+			} catch(err) {
+				console.warn(err.name,err);
+				showErrorMessage(err.message);
+			}
 
 			_this.canvas = document.getElementById('visualizer');
 			_this.canvas.width = window.innerWidth;
@@ -167,6 +176,7 @@ var dbaProcessing = {
 
 			media.catch(function(err){
 				console.warn(err.name,err);
+				showErrorMessage(err.message);
 			});
 		},
 		setFFTSize: function(fftSize){
@@ -176,12 +186,15 @@ var dbaProcessing = {
 	};
 
 window.onload = function(){
-	dbaProcessing.setup();
 
 	var btn = document.getElementById("options");
 
-	btn.addEventListener("click",function(e){
+	infoMessage = document.getElementById("message");
+	infoIcon = document.getElementById("icon");
 
+	dbaProcessing.setup();
+
+	btn.addEventListener("click",function(e){
 		e = e || window.event;
 		var target = e.target || e.srcElement;
 
@@ -189,7 +202,11 @@ window.onload = function(){
 	},false);
 };
 
-var degreesToRadians = function(deg) {
+var showErrorMessage = function(message){
+		infoIcon.textContent = ":(";
+		infoMessage.textContent = message;
+	},
+	degreesToRadians = function(deg) {
 	return deg * (Math.PI/180);     
 }
 
